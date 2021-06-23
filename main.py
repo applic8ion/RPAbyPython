@@ -1,10 +1,12 @@
 from tkinter import *   # __all__
 from apis import file, pdf, excel
 
-FILEPATH_PDF = 'C:/Users/user/Downloads/AEP-84 VOLII EDA V1 E.pdf'
-FILEPATH_EXCEL = 'D:/04_genaral/02_Project/04_python_apps/RPAforSW/test.xlsx'
-DEFAULT_PAGE_FROM = "40"
-DEFAULT_PAGE_TO = "40"
+# FILEPATH_PDF = 'C:/Users/user/Downloads/AEP-84 VOLII EDA V1 E.pdf'
+# FILEPATH_EXCEL = 'D:/04_genaral/02_Project/04_python_apps/RPAforSW/test.xlsx'
+FILEPATH_PDF = 'C:/Users/TAEWON/Downloads/EN-SCI-271-03.pdf'
+FILEPATH_EXCEL = 'C:/Users/TAEWON/OneDrive/문서/01_projects/RPAbyPython/test.xlsx'
+DEFAULT_PAGE_FROM = "7"
+DEFAULT_PAGE_TO = "7"
 
 def get_filepath(entry: Entry, title:str, filetypes:str):
     if entry == e_filepath_pdf:
