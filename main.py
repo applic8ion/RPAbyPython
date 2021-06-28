@@ -14,14 +14,10 @@ MODE_LABEL_LIST = [
 ]
 
 def check_tool():
-    print(var_tools.get())
-    print(Mode.PDF_TO_EXCEL.value)
-    if var_tools.get() == Mode.PDF_TO_EXCEL.value:
-        print(MODE_LABEL_LIST[0])
+    if var_tools.get() == Mode.PDF_TO_EXCEL.value:        
         pdf_to_excel.pack()
         excel_to_tor.pack_forget()
-    elif var_tools.get() == Mode.EXCEL_TO_TOR.value:
-        print(MODE_LABEL_LIST[1])
+    elif var_tools.get() == Mode.EXCEL_TO_TOR.value:        
         excel_to_tor.pack()
         pdf_to_excel.pack_forget()
 
@@ -44,13 +40,17 @@ for i in range(len(MODE_LABEL_LIST)):
 menu.add_cascade(label="Tools", menu=menu_tools)
 
 # Status bar
-global statusbar
 statusbar = Label(root, text="", bd=1, relief=SUNKEN, anchor=W)
 statusbar.pack(side=BOTTOM, fill=X)
 
+# Progress bar
+p_var = DoubleVar()    # 실수 반영을 위해 Double
+progressbar = ttk.Progressbar(root, maximum=100, variable=p_var)
+progressbar.pack(side=BOTTOM, fill=X)
+
 pdf_to_excel = PdfToExcel(root, statusbar)
 excel_to_tor = ExcelToTor(root, statusbar)
-pdf_to_excel.pack()
+pdf_to_excel.pack()     # 기본 모드
 
 root.resizable(False, False)
 root.config(menu=menu)

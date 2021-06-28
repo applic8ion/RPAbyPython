@@ -9,11 +9,14 @@ FILEPATH_EXCEL = 'D:/04_genaral/02_Project/04_python_apps/RPAforSW/test.xlsx'
 # FILEPATH_EXCEL = 'C:/Users/TAEWON/OneDrive/문서/01_projects/RPAbyPython/test.xlsx'
 DEFAULT_PAGE_FROM = "40"
 DEFAULT_PAGE_TO = "40"
+LABEL_FILEPATH_PDF = "PDF 파일 경로"
+LABEL_FILEPATH_EXCEL = "EXCEL 저장 경로"
 
-def get_filepath(entry: Entry, title:str, filetypes:str):
-    if entry["text"] == "PDF경로":
+def get_filepath(button:Button, entry: Entry, title:str, filetypes:str):
+    filepath = ""
+    if button["text"] == LABEL_FILEPATH_PDF:
         filepath = file.file_picker(title, filetypes)
-    elif entry["text"] == "EXCEL저장경로":
+    elif button["text"] == LABEL_FILEPATH_EXCEL:
         filepath = file.path_to_save_file(title, filetypes)
 
     if filepath != '':
@@ -62,7 +65,17 @@ class PdfToExcel():
         self.e_filepath_excel.pack(side="left", fill="both", expand=True)
         self.e_filepath_excel.insert(0, FILEPATH_EXCEL)  # 기본 파일 경로 삽입
 
-        self.btn_filepicker_excel = Button(self.excel_frame, text="EXCEL저장경로", width=6, command=lambda:get_filepath(self.e_filepath_excel, "Excel 저장 경로 선택", (("xlsx", "*.xlsx"), ("xls", "*.xls"), ("모든 파일", "*.*"))))
+        self.btn_filepicker_excel = Button(\
+            self.excel_frame, 
+            text=LABEL_FILEPATH_EXCEL, 
+            width=6, 
+            command=lambda:get_filepath(\
+                self.btn_filepicker_excel,
+                self.e_filepath_excel, 
+                "Excel 저장 경로 선택", 
+                (("xlsx", "*.xlsx"), ("xls", "*.xls"), ("모든 파일", "*.*"))
+            )
+        )
         self.btn_filepicker_excel.pack(side="right", fill="both", expand=True)
 
         # file picker frame
@@ -74,9 +87,10 @@ class PdfToExcel():
         self.e_filepath_pdf.insert(0, FILEPATH_PDF)  # 기본 파일 경로 삽입
 
         self.btn_filepicker_pdf = Button(\
-            self.file_frame, text="PDF경로", 
+            self.file_frame, text=LABEL_FILEPATH_PDF, 
             width=6, 
             command=lambda:get_filepath(\
+                self.btn_filepicker_pdf,
                 self.e_filepath_pdf, 
                 "PDF 파일 선택", 
                 (("PDF", "*.pdf"), ("모든 파일", "*.*"))
